@@ -1,6 +1,14 @@
 version: '3.7'
 
 services:
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - "8080:8080"
+    depends_on:
+      - casts
+      - movies
   movies:
     depends_on:
       - movies_db
