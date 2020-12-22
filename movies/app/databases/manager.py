@@ -1,5 +1,5 @@
 from app.databases.movies import movies, database
-from app.models.movies import MovieIn
+from app.models.movies import MovieIn, MovieUpdate
 
 
 async def add_movie(payload: MovieIn):
@@ -23,7 +23,7 @@ async def delete_movie(movie_id: int):
     return await database.execute(query=query)
 
 
-async def update_movie(movie_id: int, payload: MovieIn):
+async def update_movie(movie_id: int, payload: MovieUpdate):
     query = (
         movies.update().where(movies.c.id == movie_id).values(**payload.dict())
     )

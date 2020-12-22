@@ -15,7 +15,7 @@ async def create_cast(payload: CastIn):
     return response
 
 
-@casts.get("/{id}/", response_model=CastOut)
+@casts.get("/{cast_id}/", response_model=CastOut)
 async def get_cast(cast_id: int):
     cast = await manager.get_cast(cast_id)
     if not cast:

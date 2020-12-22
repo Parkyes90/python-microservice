@@ -23,7 +23,7 @@ async def get_movies():
     return await manager.get_all_movies()
 
 
-@movies.get("/{id}/", response_model=MovieOut)
+@movies.get("/{movie_id}/", response_model=MovieOut)
 async def get_movie(movie_id: int):
     movie = await manager.get_movie(movie_id)
     if not movie:
@@ -38,23 +38,15 @@ async def create_movie(payload: MovieIn):
             raise HTTPException(
                 status_code=404, detail=f"Cast with id:{cast_id} not found"
             )
-
     movie_id = await manager.add_movie(payload)
     response = {"id": movie_id, **payload.dict()}
 
     return response
 
 
-@movies.put("/{id}")
-async def update_movie(movie_id: int, payload: MovieIn):
-    movie = payload.dict()
-    fake_movie_db[movie_id] = movie
-    return None
-
-
-@movies.put("/{id}/", response_model=MovieOut)
+@movies.put("/{movie_id}/", response_model=MovieOut)
 async def update_movie(movie_id: int, payload: MovieUpdate):
-    movie = await manager.get_movie(id)
+    movie = await manager.get_movie(movie_id)
     if not movie:
         raise HTTPException(status_code=404, detail="Movie not found")
 
@@ -75,9 +67,9 @@ async def update_movie(movie_id: int, payload: MovieUpdate):
     return await manager.update_movie(movie_id, updated_movie)
 
 
-@movies.delete("/{id}", response_model=None)
+@movies.delete("/{movie_id}", response_model=None)
 async def delete_movie(movie_id: int):
-    movie = await manager.get_movie(id)
+    movie = await manager.get_movie(movie_id)
     if not movie:
         raise HTTPException(status_code=404, detail="Movie not found")
     return await manager.delete_movie(movie_id)

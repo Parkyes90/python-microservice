@@ -20,11 +20,11 @@ services:
       - 8001:8000
     environment:
       - DB_HOST=movies_db
-      - CAST_SERVICE_HOST_URL=http://cast_service:8000/api/v1/casts/
+      - CAST_SERVICE_HOST_URL=http://casts:8000/api/v1/casts/
   movies_db:
     image: postgres:12.1-alpine
     volumes:
-      - postgres_data_movie:/var/lib/postgresql/data/
+      - ./postgres/movies:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=movies_user
       - POSTGRES_PASSWORD=postgresspassword
@@ -43,12 +43,12 @@ services:
   casts_db:
     image: postgres:12.1-alpine
     volumes:
-      - postgres_data_cast:/var/lib/postgresql/data/
+      - ./postgres/casts:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=casts_user
       - POSTGRES_PASSWORD=postgresspassword
       - POSTGRES_DB=casts
 
 volumes:
-  postgres_data_movie:
-  postgres_data_cast:
+  casts:
+  movies:
