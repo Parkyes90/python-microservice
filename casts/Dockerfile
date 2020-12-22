@@ -6,11 +6,11 @@ WORKDIR /app
 
 COPY Pipfile* /tmp/
 ENV PYTHONUNBUFFERED 1
-COPY ./requirements.txt /app/requirements.txt
 
-RUN apt-get update \
-    && apt-get install gcc -y \
-    && apt-get clean
+RUN apt-get update -y
+RUN apt-get upgrade -y
+RUN apt-get install -y gcc postgresql-client python3-dev libc-dev libpq-dev
+RUN apt-get clean
 
 RUN cd /tmp && pipenv lock -d --requirements > requirements.txt
 RUN pip install -r /tmp/requirements.txt \

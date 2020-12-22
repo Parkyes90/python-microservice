@@ -16,7 +16,7 @@ from databases import Database
 DB_USER = os.environ.get("DB_USER", "movies_user")
 DB_NAME = os.environ.get("DB_NAME", "movies")
 DB_HOST = os.environ.get("DB_HOST", "localhost")
-DB_PASSWORD = os.environ.get("DB_PASSWORD", "postgrespassword")
+DB_PASSWORD = os.environ.get("DB_PASSWORD", "postgresspassword")
 DB_PORT = os.environ.get("DB_PORT", 5432)
 DB_ENGINE = os.environ.get("DB_ENGINE", "postgresql")
 
